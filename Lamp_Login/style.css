@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #0f0f10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+/* --- Lamp (Ceiling Style) --- */
+.lamp {
+    position: relative;
+    z-index: 2;
+    margin-top: 1px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* پایه سقفی */
+.lamp .ceiling-cap {
+    width: 180px;
+    height: 30px;
+    background: linear-gradient(180deg, #3a3a3c, #222225);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    margin-bottom: -5px;
+    z-index: 8;
+}
+
+.lamp .cord {
+    width: 4px;
+    height: 100px;
+    background: #ccc;
+}
+
+.lamp .shade {
+    width: 220px;
+    height: 70px;
+    background: linear-gradient(180deg, #6b6b6f, #55555a);
+    border-radius: 8px 8px 0 0;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6) inset, 0 6px 18px rgba(0, 0, 0, 0.6);
+    z-index: 6;
+}
+
+.lamp .shade::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -28px;
+    width: 140px;
+    height: 26px;
+    border-radius: 4px 4px 0 0;
+    background: #4b4b4d;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.lamp .bulb {
+    width: 60px;
+    height: 30px; /* نصف ارتفاع */
+    background: radial-gradient(circle at 30% 30%, #ffffff, #fff3b8);
+    border-radius: 0 0 50% 50%; /* نیم‌دایره پایین */
+    margin: -5px auto 0;
+    position: relative;
+    z-index: 7;
+    box-shadow: 0 4px 15px rgba(255, 255, 150, 0.6); /* کمی نور از پایین */
+    transition: all 0.3s ease;
+}
+
+.lamp .pull {
+    position: absolute;
+    top: 58px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 130px;
+    background: linear-gradient(to bottom, #d2d6d8, #c1c3c4);
+    border-radius: 2px;
+    z-index: 5;
+}
+
+.lamp .pull::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 126px;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, #e8d9a6, #d8c17a);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
+/* نور چراغ - پیش فرض خاموش */
+.lamp .light {
+    position: absolute;
+    top: 170px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 520px;
+    height: 420px;
+    background: linear-gradient(
+            to bottom,
+            rgba(255, 250, 220, 0.95) 0%,
+            rgba(230, 210, 150, 0.9) 10%,
+            rgba(200, 170, 90, 0.45) 35%,
+            rgba(40, 30, 20, 0.0) 88%
+    );
+    clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+    filter: blur(16px) saturate(110%);
+    mix-blend-mode: screen;
+    opacity: 0; /* پیش‌فرض خاموش */
+    visibility: hidden; /* پیش‌فرض مخفی */
+    transition: all 400ms ease;
+    z-index: 0;
+}
+
+/* روشن شدن چراغ */
+.lamp.on .bulb {
+    background: yellow;
+    box-shadow: 0 0 25px yellow, 0 6px 20px rgba(255, 255, 100, 0.7);
+}
+
+.lamp.on .light {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* فرم لاگین زیر چراغ */
+.login-form {
+    width: 300px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 400ms ease;
+    z-index: 15;
+    margin-top: 40px;
+}
+
+.login-form.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.login-form h2 {
+    margin: 0 0 15px;
+    text-align: center;
+    color: #fff;
+}
+
+.login-form input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #007BFF;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
